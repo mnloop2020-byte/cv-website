@@ -59,15 +59,16 @@ export default function Projects() {
           </p>
           <div className="mt-6 flex items-center justify-center gap-3">
             <a
-              href="/mohammed_najeeb_cv.pdf"
+              href="/cv-website/mohammed_najeeb_cv.pdf"
               download="Mohammed_Najeeb_CV.pdf"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all duration-200"
             >
               <DownloadIcon />
               Download CV
             </a>
+            
             <a
-              href="/mohammed_najeeb_cv.pdf"
+              href="/cv-website/mohammed_najeeb_cv.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-full hover:bg-slate-50 active:scale-95 transition-all duration-200"

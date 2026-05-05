@@ -1,5 +1,6 @@
 import { personal } from "../data/portfolio";
 
+
 export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50/40">
@@ -70,15 +71,11 @@ export default function Hero() {
           <div className="relative">
             <div className="absolute -inset-3 bg-gradient-to-br from-indigo-400 to-violet-500 rounded-full opacity-20 blur-lg" />
             <div className="relative w-52 h-52 lg:w-64 lg:h-64 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-slate-100">
-              <img
-                src="/src/assets/profile.jpg"
-                alt={personal.name}
-                className="w-full h-full object-cover object-top"
-                onError={(e) => {
-                  const img = e.target as HTMLImageElement;
-                  img.src = "/profile.jpg";
-                }}
-              />
+           <img
+  src="https://mnloop2020-byte.github.io/cv-website/myprofile.png"
+  alt={personal.name}
+  className="w-full h-full object-cover object-top"
+/>
             </div>
           </div>
         </div>
