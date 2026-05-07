@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { projects, type ProjectCategory } from "../data/portfolio";
+import { projects, type ProjectCategory, type Project } from "../data/portfolio";
 
 const categories: ("All" | ProjectCategory)[] = ["All", "Web", "GitHub"];
 
@@ -43,9 +43,17 @@ function DownloadIcon() {
   );
 }
 
+function getPreviewImage(project: Project): string {
+  if (project.linkType === "live" && project.liveUrl) {
+    return `https://s.wordpress.com/mshots/v1/${encodeURIComponent(project.liveUrl)}?w=600&h=400`;
+  }
+  const repoPath = project.githubUrl.replace("https://github.com/", "");
+  return `https://opengraph.githubassets.com/1/${repoPath}`;
+}
+
 export default function Projects() {
   const [active, setActive] = useState<"All" | ProjectCategory>("All");
-  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
+  const filtered: Project[] = active === "All" ? projects : projects.filter((p) => p.category === active);
 
   return (
     <section id="projects" className="py-24 bg-white">
@@ -66,7 +74,6 @@ export default function Projects() {
               <DownloadIcon />
               Download CV
             </a>
-
             <a
               href="/cv-website/mohammed_najeeb_cv.pdf"
               target="_blank"
@@ -84,8 +91,8 @@ export default function Projects() {
               key={cat}
               onClick={() => setActive(cat)}
               className={`text-sm font-medium px-4 py-2 rounded-full border transition-all duration-200 ${active === cat
-                  ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-200"
-                  : "bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-600"
+                ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-200"
+                : "bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-600"
                 }`}
             >
               {cat}
@@ -106,9 +113,21 @@ export default function Projects() {
                 </div>
               )}
 
+              <div className="w-full h-44 overflow-hidden bg-slate-100">
+                <img
+                  src={getPreviewImage(project)}
+                  alt={project.title}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              </div>
+
               <div className={`h-1.5 w-full ${project.category === "Web"
-                  ? "bg-gradient-to-r from-blue-400 to-indigo-500"
-                  : "bg-gradient-to-r from-slate-400 to-slate-600"
+                ? "bg-gradient-to-r from-blue-400 to-indigo-500"
+                : "bg-gradient-to-r from-slate-400 to-slate-600"
                 }`} />
 
               <div className="p-6 flex flex-col flex-1 gap-4">
@@ -135,22 +154,47 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-3 mt-auto pt-2 border-t border-slate-50 group-hover:border-indigo-50">
-                  {project.linkType === "live" ? (
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
-                      View Project <ExternalLinkIcon />
-                    </a>
-                  ) : (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors">
-                      View on GitHub <GitHubIcon />
-                    </a>
-                  )}
-                  {project.linkType === "live" && project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                      className="ml-auto text-slate-400 hover:text-slate-700 transition-colors" title="Source code">
-                      <GitHubIcon />
+                <div className="flex flex-col gap-2 mt-auto pt-2 border-t border-slate-50 group-hover:border-indigo-50">
+                  <div className="flex items-center gap-3">
+                    {project.linkType === "live" ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+                      >
+                        Dashboard <ExternalLinkIcon />
+                      </a>
+                    ) : (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors"
+                      >
+                        View on GitHub <GitHubIcon />
+                      </a>
+                    )}
+                    {project.linkType === "live" && project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-auto text-slate-400 hover:text-slate-700 transition-colors"
+                        title="Source code"
+                      >
+                        <GitHubIcon />
+                      </a>
+                    )}
+                  </div>
+                  {project.customerUrl && (
+                    <a
+                      href={project.customerUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition-colors"
+                    >
+                      Customer Page <ExternalLinkIcon />
                     </a>
                   )}
                 </div>
