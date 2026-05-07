@@ -66,7 +66,7 @@ export default function Projects() {
               <DownloadIcon />
               Download CV
             </a>
-            
+
             <a
               href="/cv-website/mohammed_najeeb_cv.pdf"
               target="_blank"
@@ -83,11 +83,10 @@ export default function Projects() {
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`text-sm font-medium px-4 py-2 rounded-full border transition-all duration-200 ${
-                active === cat
+              className={`text-sm font-medium px-4 py-2 rounded-full border transition-all duration-200 ${active === cat
                   ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-200"
                   : "bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-600"
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -98,9 +97,8 @@ export default function Projects() {
           {filtered.map((project) => (
             <article
               key={project.id}
-              className={`group relative bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden ${
-                project.featured ? "ring-1 ring-indigo-100" : ""
-              }`}
+              className={`group relative bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden ${project.featured ? "ring-1 ring-indigo-100" : ""
+                }`}
             >
               {project.featured && (
                 <div className="absolute top-4 right-4 z-10 bg-indigo-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
@@ -108,11 +106,10 @@ export default function Projects() {
                 </div>
               )}
 
-              <div className={`h-1.5 w-full ${
-                project.category === "Web"
+              <div className={`h-1.5 w-full ${project.category === "Web"
                   ? "bg-gradient-to-r from-blue-400 to-indigo-500"
                   : "bg-gradient-to-r from-slate-400 to-slate-600"
-              }`} />
+                }`} />
 
               <div className="p-6 flex flex-col flex-1 gap-4">
                 <div className="flex items-center gap-2">
